@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ModalContext } from '../../contexts/modal/modalContext';
+import { ModalContext } from '../../contexts/modalContext';
 
 
 export const RowPatient = ({patient}) => {
@@ -7,7 +7,7 @@ export const RowPatient = ({patient}) => {
   const { setModalTitle ,setShowModal } = useContext(ModalContext);
 
 
-
+  //abrir modal y editar el paciente
   const editPatient = () => {
     setModalTitle('Edit Patient');
     setShowModal(true);

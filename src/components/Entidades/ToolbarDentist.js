@@ -1,13 +1,17 @@
 import React, { useContext } from "react";
-import { ModalContext } from '../../contexts/modal/modalContext';
+import { DentistContext } from "../../contexts/dentistContext";
+import { ModalContext } from '../../contexts/modalContext';
 
 export const ToolbarDentist = () => {
 
    const { setModalTitle ,setShowModal } = useContext(ModalContext);
 
+   const { obtenerDentista } = useContext(DentistContext)
+
     const abrirModalCrear=()=>{
         setModalTitle('Create Dentist');
         setShowModal(true);
+        obtenerDentista(null);
     }
 
 

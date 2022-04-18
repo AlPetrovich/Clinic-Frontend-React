@@ -1,24 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RowDentist } from "./RowDentist";
+import { DentistContext } from "../../contexts/dentistContext";
 
 export const TableDentist = () => {
 
+  const { dentistList, obtenerDentistas } = useContext(DentistContext)
 
-  const [dentistList, setDentistList] = useState([
-    {
-      "id": 1,
-      "name": "Luiss token ",
-      "lastname": "Perez s12",
-      "licence": "123ass"
-    },
-    {
-      "id": 2,
-      "name": "pepe ",
-      "lastname": "pepe",
-      "licence": "123ass"
-    }
-  ]);
 
+  useEffect(()=>{
+
+    obtenerDentistas();
+    /// eslint-disable-next-line
+  },[]);
+
+  if(dentistList.length === 0){
+    return <p>No hay dentistas</p>
+  }
 
   return (
     <div className="table-container">
@@ -42,3 +39,20 @@ export const TableDentist = () => {
     </div>
   );
 };
+
+
+
+// const [dentistList, setDentistList] = useState([
+//   {
+//     "id": 1,
+//     "name": "Luiss token ",
+//     "lastname": "Perez s12",
+//     "licence": "123ass"
+//   },
+//   {
+//     "id": 2,
+//     "name": "pepe ",
+//     "lastname": "pepe",
+//     "licence": "123ass"
+//   }
+// ]);

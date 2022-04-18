@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ModalContext } from '../../contexts/modal/modalContext';
+import { ModalContext } from '../../contexts/modalContext';
 
 export const ToolbarPatient = () => {
 

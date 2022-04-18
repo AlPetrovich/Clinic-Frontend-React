@@ -7,6 +7,7 @@ import { Patient } from './pages/Patient'
 import { Turn } from './pages/Turn'
 
 
+console.log("hola")
 
 export const ClinicApp = () => {
   return (

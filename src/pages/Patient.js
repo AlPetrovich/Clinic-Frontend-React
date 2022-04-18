@@ -3,6 +3,7 @@ import { TablePatient } from "../components/Entidades/TablePatient";
 import { Layout } from "../components/common/Layout";
 import { ToolbarPatient } from "../components/Entidades/ToolbarPatient";
 import { Modal } from "../components/common/Modal";
+import { FormPatient } from "../components/Entidades/FormPatient";
 
 export const Patient = () => {
   return (
@@ -14,7 +15,9 @@ export const Patient = () => {
           <TablePatient />
         </div>
       </div>
-      <Modal></Modal>
+      <Modal>
+        <FormPatient />
+      </Modal>
     </Layout>
   );
 };
