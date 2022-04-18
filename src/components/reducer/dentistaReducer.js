@@ -1,11 +1,4 @@
 import { ELIMINAR_DENTISTA, MODIFICAR_DENTISTA, OBTENER_DENTISTA, OBTENER_DENTISTAS, REGISTRAR_DENTISTA } from "../const/actionsTypes";
-// const initialState = {
-//     dentistList: []
-// }
-// dispatch({
-//     type: OBTENER_DENTISTAS,
-//     payload: clientes
-// })
 
 export const dentistaReducer = ( state , action ) => {
 

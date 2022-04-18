@@ -1,19 +1,36 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext,useEffect , useState } from 'react'
+import { PatientContext } from '../../contexts/patientContext';
 import { ModalContext } from '../../contexts/modalContext';
 
 
 export const FormPatient = () => {
 
     const { setShowModal } = useContext(ModalContext);
+    const { registrarPaciente, actualizarPaciente, patientActual, obtenerPaciente } = useContext(PatientContext);
 
     const patientDefault={
         name:'',
         lastname:'',
-        province:''
+        dni:'',
+        accessDate:''
     }
 
     const [patient, setPatient] = useState(patientDefault);
     const [mensaje, setMensaje] = useState(null)
+
+    const { name, lastname, dni, accessDate } = patient;
+
+    useEffect(() => {
+      //---------------------------------------------------ver
+      if(patientActual !== null){
+        setPatient(patientActual);
+      }else{
+        setPatient(patientDefault);
+      }
+      /// eslint-disable-next-line
+    
+    }, [patientActual])
+
 
     const handleChange = (e) => {
         setPatient({
@@ -25,12 +42,16 @@ export const FormPatient = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         
-        if(patient.name.trim() === '' && patient.lastname.trim() === '' && patient.province.trim() === ''){
+        if(patient.name.trim() === '' && patient.lastname.trim() === '' && patient.dni.trim() === '' && patient.accessDate.trim() === ''){
             setMensaje('Todos los campos son obligatorios');
             return;
         }
 
-    
+        if(patientActual !== null){
+          actualizarPaciente(obtenerPacienteTemporal());
+        }else{
+          registrarPaciente(obtenerPacienteTemporal());
+        }
         //cerrar modal
         cerrarModal();
     }
@@ -43,10 +64,15 @@ export const FormPatient = () => {
     const cerrarModal = () => {
         limpiarForm();
         setShowModal(false);
+        obtenerPaciente(null);
     }
 
    
-       
+    const obtenerPacienteTemporal = () => {
+      let pacienteTemporal = {...patient};
+      if(pacienteTemporal.dni === "") delete pacienteTemporal.dni;
+      return pacienteTemporal;
+  }    
 
   return(
     <form onSubmit={ handleOnSubmit }>
@@ -67,7 +93,7 @@ export const FormPatient = () => {
                 type="text"
                 placeholder="Nombre"
                 name="name"
-                value={ patient.name }
+                value={ name }
                 onChange={ handleChange }
               />
               <span className="icon is-small is-left">
@@ -83,7 +109,7 @@ export const FormPatient = () => {
                 type="text"
                 placeholder="Apellidos"
                 name="lastname"
-                value={ patient.lastname }
+                value={ lastname }
                 onChange={ handleChange }
               />
             </p>
@@ -93,7 +119,7 @@ export const FormPatient = () => {
 
       <div className="field is-horizontal">
         <div className="field-label is-normal">
-          <label className="label">Provincia</label>
+          <label className="label">DNI</label>
         </div>
         <div className="field-body">
           <div className="field">
@@ -102,9 +128,33 @@ export const FormPatient = () => {
                 autoComplete="off"
                 className="input"
                 type="text"
-                placeholder="Ingrese su provincia"
-                name="province"
-                value={ patient.licence }
+                placeholder="Ingrese su DNI"
+                name="dni"
+                value={ dni }
+                onChange={ handleChange }
+              />
+              <span className="icon is-small is-left">
+                <i className="fas fa-map-marked-alt"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="field is-horizontal">
+        <div className="field-label is-normal">
+          <label className="label">Fecha de Acceso</label>
+        </div>
+        <div className="field-body">
+          <div className="field">
+            <div className="control is-expanded has-icons-left">
+              <input
+                autoComplete="off"
+                className="input"
+                type="text"
+                placeholder="Ingrese su Fecha de Acceso"
+                name="accessDate"
+                value={ accessDate }
                 onChange={ handleChange }
               />
               <span className="icon is-small is-left">

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { RowDentist } from "./RowDentist";
+import React, { useContext, useEffect } from "react";
+import { RowDentist } from "../rows/RowDentist";
 import { DentistContext } from "../../contexts/dentistContext";
 
 export const TableDentist = () => {

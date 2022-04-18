@@ -1,62 +1,56 @@
 import { createContext, useReducer } from "react";
-import {
-  ELIMINAR_DENTISTA,
-  MODIFICAR_DENTISTA,
-  OBTENER_DENTISTA,
-  OBTENER_DENTISTAS,
-  REGISTRAR_DENTISTA,
-} from "../components/const/actionsTypes";
+import { paciente } from "../components/const/actionsTypes";
 import Axios from "axios";
-import { dentistaReducer } from "../components/reducer/dentistaReducer";
+import { patientReducer } from "../components/reducer/patientReducer";
 import Swal from "sweetalert2";
 
-export const DentistContext = createContext();
+export const PatientContext = createContext();
 
-export const DentistContextProvider = (props) => {
+export const PatientContextProvider = (props) => {
   //definimos states que queremos compartir al resto de componentes
   const initialState = {
-    dentistList: [],
-    dentistaActual: null,
+    patientList: [],
+    patientActual: null,
   };
 
-  const [state, dispatch] = useReducer(dentistaReducer, initialState);
+  const [state, dispatch] = useReducer(patientReducer, initialState);
 
-  const obtenerDentistas = async () => {
+  const obtenerPacientes = async () => {
     try {
       const resultado = await Axios.get(
-        "http://localhost:8080/api/dentist/list"
+        "http://localhost:8080/api/patient/list"
       );
       dispatch({
-        type: OBTENER_DENTISTAS,
-        payload: resultado.data, //envia lista de dentistas
+        type: paciente.OBTENER_PACIENTES,
+        payload: resultado.data, //envia lista de pacientes
       });
 
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Hubo un error al obtener los dentistas",
+        text: "Hubo un error al obtener los pacientes",
         toast: true,
       });
       console.log(error);
     }
   };
 
-  const registrarDentista = async (dentista) => {
+  const registrarPaciente = async (pacientes) => {
     try {
       const resultado = await Axios.post(
-        "http://localhost:8080/api/dentist/",
-        dentista
+        "http://localhost:8080/api/patient/",
+        pacientes
       );
 
       dispatch({
-        type: REGISTRAR_DENTISTA,
+        type: paciente.REGISTRAR_PACIENTE,
         payload: resultado.data,
       });
       Swal.fire({
         icon: "success",
         title: "Correcto",
-        text: "Dentista registrado correctamente",
+        text: "Paciente registrado correctamente",
         toast: true,
       });
 
@@ -71,47 +65,47 @@ export const DentistContextProvider = (props) => {
     }
   };
 
-  const obtenerDentista = async (dentista) => {
+  const obtenerPaciente = async (pacientes) => {
     try {
-      let dentistaEncontrado = null;
-      if (dentista !== null) {
+      let pacienteEncontrado = null;
+      if (pacientes !== null) {
         const resultado = await Axios.get(
-          `http://localhost:8080/api/dentist/${dentista.id}`
+          `http://localhost:8080/api/patient/${pacientes.id}`
         );
-        dentistaEncontrado = resultado.data;
+        pacienteEncontrado = resultado.data;
       } else {
-        dentistaEncontrado = dentista;
+        pacienteEncontrado = pacientes;
       }
       dispatch({
-        type: OBTENER_DENTISTA,
-        payload: dentistaEncontrado,
+        type: paciente.OBTENER_PACIENTE,
+        payload: pacienteEncontrado,
       });
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Hubo un error al obtener el dentista",
+        text: "Hubo un error al obtener el pacientes",
         toast: true,
       });
       console.log(error);
     }
   };
 
-  const actualizarDentista = async (dentista) => {
+  const actualizarPaciente = async (pacientes) => {
     try {
       const resultado = await Axios.put(
-        `http://localhost:8080/api/dentist/`,
-        dentista
+        `http://localhost:8080/api/patient/`,
+        pacientes
       );
 
       dispatch({
-        type: MODIFICAR_DENTISTA,
+        type: paciente.MODIFICAR_PACIENTE,
         payload: resultado.data,
       });
       Swal.fire({
         icon: "success",
         title: "Correcto",
-        text: "Dentista actualizado correctamente",
+        text: "Paciente actualizado correctamente",
         toast: true,
       });
     } catch (error) {
@@ -125,7 +119,7 @@ export const DentistContextProvider = (props) => {
     }
   };
 
-  const eliminarDentista = async (idDentista) => {
+  const eliminarPaciente = async (idPaciente) => {
     try {
       Swal.fire({
         icon: "question",
@@ -136,17 +130,17 @@ export const DentistContextProvider = (props) => {
         toast: true,
       }).then(async (result) => {
         if (result.value) {
-          await Axios.delete(`http://localhost:8080/api/dentist/${idDentista}`);
+          await Axios.delete(`http://localhost:8080/api/patient/${idPaciente}`);
 
           dispatch({
-            type: ELIMINAR_DENTISTA,
-            payload: idDentista,
+            type: paciente.ELIMINAR_PACIENTE,
+            payload: idPaciente,
           });
 
           Swal.fire({
             icon: "success",
             title: "Correcto",
-            text: "Dentista eliminado correctamente",
+            text: "Paciente eliminado correctamente",
             toast: true,
           });
         }
@@ -165,20 +159,20 @@ export const DentistContextProvider = (props) => {
 
   //indicar cual es el estado que queremos compartir
   return (
-    <DentistContext.Provider
+    <PatientContext.Provider
       value={{
-        dentistList: state.dentistList,
-        dentistaActual: state.dentistaActual,
+        patientList: state.patientList,
+        patientActual: state.patientActual,
 
-        obtenerDentistas,
-        registrarDentista,
-        obtenerDentista,
-        actualizarDentista,
-        eliminarDentista,
+        obtenerPacientes,
+        registrarPaciente,
+        obtenerPaciente,
+        actualizarPaciente,
+        eliminarPaciente,
       }}
     >
       {/* compartimos a todos los hijos que tenga este provider */}
       {props.children}
-    </DentistContext.Provider>
+    </PatientContext.Provider>
   );
 };

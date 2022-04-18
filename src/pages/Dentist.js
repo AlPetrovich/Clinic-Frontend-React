@@ -1,9 +1,9 @@
 import React from 'react'
-import { TableDentist } from '../components/Entidades/TableDentist'
+import {TableDentist } from '../components/tables/TableDentist';
 import { Layout } from '../components/common/Layout'
-import { ToolbarDentist } from '../components/Entidades/ToolbarDentist'
+import {ToolbarDentist} from '../components/toolbars/ToolbarDentist'
 import { Modal } from '../components/common/Modal'
-import { FormDentist } from '../components/Entidades/FormDentist'
+import { FormDentist } from '../components/forms/FormDentist'
 import { DentistContextProvider } from '../contexts/dentistContext'
 
 export const Dentist = () => {

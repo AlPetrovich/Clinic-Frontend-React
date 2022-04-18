@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { RowPatient } from "./RowPatient";
+import React, { useContext, useEffect} from "react";
+import { PatientContext } from "../../contexts/patientContext";
+import { RowPatient } from "../rows/RowPatient";
 
 
 export const TablePatient = () => {
 
 
-  const [patientList, setPatientList] = useState(
-  [
-    {
-      "id": 1,
-      "name": "Luiss token ",
-      "lastname": "Perez s12",
-      "province": "123ass"
-    }
-  ]
-  );
+  const { patientList, obtenerPacientes } = useContext(PatientContext);
 
+  useEffect(() => {
+    obtenerPacientes();
+  },[]);
 
+  if(patientList.length === 0){
+    return <p>No hay pacientes</p>
+  }
+
+ 
   return (
     <div className="table-container">
       <table className="table is-hoverable is-fullwidth">
@@ -25,7 +25,9 @@ export const TablePatient = () => {
             <th>Actions</th>
             <th>Name</th>
             <th>Lastname</th>
-            <th>province</th>
+            <th>DNI</th>
+            <th>Province</th>
+            <th>Access Date</th>
           </tr>
         </thead>
         <tbody>
