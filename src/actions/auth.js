@@ -1,7 +1,5 @@
-
-
 //proceso de autenticacion 
-
+import Swal from "sweetalert2";
 import { fetchSinToken } from "../helpers/fetch"
 import { types } from "../types/types";
 
@@ -21,7 +19,9 @@ export const startLogin=( usernameOrMail, password)=>{
             dispatch(login({
                 name: usernameOrMail,
                 pass: password,
-            }));
+            }))
+        }else{
+            Swal.fire('Error', body.message, 'error');
         }
     }
 }

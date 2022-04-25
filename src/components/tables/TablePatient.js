@@ -26,7 +26,6 @@ export const TablePatient = () => {
             <th>Name</th>
             <th>Lastname</th>
             <th>DNI</th>
-            <th>Province</th>
             <th>Access Date</th>
           </tr>
         </thead>

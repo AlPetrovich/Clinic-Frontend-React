@@ -12,7 +12,6 @@ fieldset{
     padding: 30px 0px;
     color: black;
     margin-top: 100px;
-    box-shadow: 1px 8px 8px rgb(113, 111, 111);
     background-color: rgba(255, 255, 255, 0.427);
 }
 fieldset:hover{
@@ -20,10 +19,8 @@ fieldset:hover{
 }
 input{
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.575);
-    
-
-    
+    background-color: rgba(176, 142, 142, 0.575);
+    margin-top: 10px;
 }
 input::placeholder{
     color:black;
@@ -36,34 +33,20 @@ padding: 0;
 margin: 0;
 }
 
-.login button{
+.buttonp{
     width: 50%;
     height: 40px;
     border-radius: 7px;
-    background-color: var(--color-principal);
-    opacity: 0.7;
-    color: black;
+    background-color: black;
+    color: rgb(255, 254, 254);
     font-size: 1.1em;
     margin-top: 20px;
     margin-right: auto;
     margin-left: auto;
 
 }
-.login button:hover{
-    background-color: rgb(11, 155, 155);
-}
+
 .login{
     text-align: center;
 }
-.login .footer{
-    position: absolute;
-    bottom: 0%;
-    width: 100%;
-}
-.form{
-    position: relative;
-}
-.p-inputgroup-addon{
-    background-color: var(--color-principal);
-    color: antiquewhite;
-}
+

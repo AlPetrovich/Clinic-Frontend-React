@@ -127,7 +127,7 @@ export const FormDentist = () => {
                 autoComplete="off"
                 className="input"
                 type="text"
-                placeholder="Ingrese su Licencia"
+                placeholder="Ingrese su licencia"
                 name="licence"
                 value={ dentist.licence }
                 onChange={ handleChange }

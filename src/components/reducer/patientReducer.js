@@ -19,7 +19,7 @@ export const patientReducer = ( state , action ) => {
         case paciente.OBTENER_PACIENTE:
             return{
                 ...state,
-                pacienteActual: action.payload
+                patientActual: action.payload
             };
 
         case paciente.MODIFICAR_PACIENTE:

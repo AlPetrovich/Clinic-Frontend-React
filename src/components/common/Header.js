@@ -17,9 +17,9 @@ export const Header = () => {
     <div className='navbar is-primary'>
         <div className='navbar-brand'>
             <Link to='/' className='navbar-item'>
-                <img src='/images/logo.png' alt='Clinic' width='112' height='28' />
+                <img src="https://uploads-ssl.webflow.com/57c994f2120db7d91b49829c/5c8a61f735905d9edc64bf43_Dentalink%20Blanco-Logo.png" alt='Clinic' width='112' height='28' />
             </Link>
-            <button onClick={ handleLogout }> Logout </button>
+            <button onClick={ handleLogout } className="btn btn-dark "> Logout </button>
         </div>
         
     </div>

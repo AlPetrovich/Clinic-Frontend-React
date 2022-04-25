@@ -10,6 +10,7 @@ export const Login = () => {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
 
   const [formLoginValues, handleLoginInputChange] = useForm({
     usernameOrMail: "rio@gmail.com",
@@ -23,7 +24,10 @@ export const Login = () => {
     e.preventDefault();
     console.log(formLoginValues)
     dispatch( startLogin(usernameOrMail, password) )
+    navigate("/");
   }
+
+
 
   return (
     <div className="login">
@@ -56,12 +60,11 @@ export const Login = () => {
                 onChange = {handleLoginInputChange}
               />
             </div>
-            {/* <button onClick={handleLogin}> Ingresar</button> */}
             <div className="form-group">
               <input
                 type="submit"
                 value="Login"
-                className="btn btn-primary"
+                className="buttonp"
               >
               </input>
             </div>

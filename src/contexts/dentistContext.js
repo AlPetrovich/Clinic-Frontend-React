@@ -44,10 +44,11 @@ export const DentistContextProvider = (props) => {
 
   const registrarDentista = async (dentista) => {
     try {
-      const resultado = await Axios.post(
-        "http://localhost:8080/api/dentist/",
-        dentista
-      );
+      const resultado = await Axios.post("http://localhost:8080/api/dentist/",dentista,{
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      });
 
       dispatch({
         type: REGISTRAR_DENTISTA,
@@ -99,15 +100,17 @@ export const DentistContextProvider = (props) => {
 
   const actualizarDentista = async (dentista) => {
     try {
-      const resultado = await Axios.put(
-        `http://localhost:8080/api/dentist/`,
-        dentista
-      );
+      const resultado = await Axios.put(`http://localhost:8080/api/dentist/${dentista.id}`,dentista,{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        }
+      });
 
       dispatch({
         type: MODIFICAR_DENTISTA,
         payload: resultado.data,
       });
+      window.location.reload();
       Swal.fire({
         icon: "success",
         title: "Correcto",
@@ -136,7 +139,11 @@ export const DentistContextProvider = (props) => {
         toast: true,
       }).then(async (result) => {
         if (result.value) {
-          await Axios.delete(`http://localhost:8080/api/dentist/${idDentista}`);
+          await Axios.delete(`http://localhost:8080/api/dentist/${idDentista}`,{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          });
 
           dispatch({
             type: ELIMINAR_DENTISTA,

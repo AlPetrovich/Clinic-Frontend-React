@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { ModalContext } from '../../contexts/modalContext';
 import { PatientContext } from "../../contexts/patientContext";
+import { ModalContext } from '../../contexts/modalContext';
 
 
 export const RowPatient = ({patient}) => {
@@ -15,9 +15,7 @@ export const RowPatient = ({patient}) => {
     setShowModal(true);
   }
   
-  const deletePatient = () => {
-    console.log("Eliminar Dentista");
-  }
+ 
 
   return (
     <tr key={patient.id}>
@@ -44,7 +42,6 @@ export const RowPatient = ({patient}) => {
       <td>{patient.name}</td>
       <td>{patient.lastname}</td>
       <td>{patient.dni}</td>
-      <td>{patient.province}</td>
       <td>{patient.accessDate}</td>
     </tr>
   );

@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 import { paciente } from "../components/const/actionsTypes";
-import Axios from "axios";
 import { patientReducer } from "../components/reducer/patientReducer";
+import Axios from "axios";
 import Swal from "sweetalert2";
 
 export const PatientContext = createContext();
@@ -38,10 +38,11 @@ export const PatientContextProvider = (props) => {
 
   const registrarPaciente = async (pacientes) => {
     try {
-      const resultado = await Axios.post(
-        "http://localhost:8080/api/patient/",
-        pacientes
-      );
+        const resultado = await Axios.post("http://localhost:8080/api/patient/",pacientes,{
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        });
 
       dispatch({
         type: paciente.REGISTRAR_PACIENTE,
@@ -65,16 +66,16 @@ export const PatientContextProvider = (props) => {
     }
   };
 
-  const obtenerPaciente = async (pacientes) => {
+  const obtenerPaciente = async (patient) => {
     try {
       let pacienteEncontrado = null;
-      if (pacientes !== null) {
+      if (patient !== null) {
         const resultado = await Axios.get(
-          `http://localhost:8080/api/patient/${pacientes.id}`
+          `http://localhost:8080/api/patient/${patient.id}`
         );
         pacienteEncontrado = resultado.data;
       } else {
-        pacienteEncontrado = pacientes;
+        pacienteEncontrado = paciente;
       }
       dispatch({
         type: paciente.OBTENER_PACIENTE,
@@ -84,7 +85,7 @@ export const PatientContextProvider = (props) => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Hubo un error al obtener el pacientes",
+        text: "Hubo un error al obtener el paciente",
         toast: true,
       });
       console.log(error);
@@ -93,15 +94,17 @@ export const PatientContextProvider = (props) => {
 
   const actualizarPaciente = async (pacientes) => {
     try {
-      const resultado = await Axios.put(
-        `http://localhost:8080/api/patient/`,
-        pacientes
-      );
+      const resultado = await Axios.put(`http://localhost:8080/api/patient/${pacientes.id}`,pacientes,{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        }
+      });
 
       dispatch({
         type: paciente.MODIFICAR_PACIENTE,
         payload: resultado.data,
       });
+      window.location.reload();
       Swal.fire({
         icon: "success",
         title: "Correcto",
@@ -130,7 +133,11 @@ export const PatientContextProvider = (props) => {
         toast: true,
       }).then(async (result) => {
         if (result.value) {
-          await Axios.delete(`http://localhost:8080/api/patient/${idPaciente}`);
+          await Axios.delete(`http://localhost:8080/api/patient/${idPaciente}`,{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          });
 
           dispatch({
             type: paciente.ELIMINAR_PACIENTE,
