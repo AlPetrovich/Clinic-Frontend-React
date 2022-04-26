@@ -27,78 +27,27 @@ export const Login = () => {
     navigate("/");
   }
 
-
-
-  return (
-    <div className="login">
-      <div className="form">
-        <h2 className="titulo-servicios">Consultorio Odontologico Login</h2>
-        <fieldset>
-          <legend> Login</legend>
-          <form className="form" onSubmit={handleLogin}>
-            <div className="usuario">
-              <span className="p-inputgroup-addon">
-                <i className="pi pi-user"></i>
-              </span>
-              <input
-                type="text"
-                placeholder="Username"
-                value={usernameOrMail}
-                name="usernameOrMail"
-                onChange = {handleLoginInputChange}
-              />
-            </div>
-            <div className="contrasenia">
-              <span className="p-inputgroup-addon">
-                <i className="pi pi-star-o"></i>
-              </span>
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={password}
-                onChange = {handleLoginInputChange}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="submit"
-                value="Login"
-                className="buttonp"
-              >
-              </input>
-            </div>
-          </form>
-        </fieldset>
-      </div>
+  return(
+    <div className="padre">
+    <div className="background">
+        <div className="shape"></div>
+        <div className="shape"></div>
     </div>
-  );
-};
+    <form className="formLogin">
+        <h3>Login Here</h3>
 
-// const navigate = useNavigate();
+        <label >Username</label>
+        <input className="inputLogin" type="text" placeholder="Email or Username" id="username" value={usernameOrMail} name="usernameOrMail" onChange={handleLoginInputChange}/>
 
-// const [username, setUsername] = useState("");
-// const [password, setPassword] = useState("");
+        <label >Password</label>
+        <input className="inputLogin" type="password" placeholder="Password" id="password" name="password" value={password} onChange={handleLoginInputChange}/>
 
-// function handleSubmit(e) {
-//   e.preventDefault();
-//   let url = "http://localhost:8080/api/auth/login";
-//   let payload = { usernameOrMail: username, password: password };
-//   axios
-//     .post(url, payload)
-//     .then((data) => {
+        <button className="btnLogin" type="submit" onClick={handleLogin}>Log In</button>
+        
+    </form>
+    </div>
+    
+  )
 
-//       if (data.data.jwt) {
-//         localStorage.setItem("jwt", data.data.jwt);
-//         window.location.reload();
-//       }
-//     })
-//     .catch((e) => console.log(e));
-// }
 
-// const handleLogin = () => {
-
-//   navigate("/",{
-//       replace: true
-//     });
-//   }
+}
